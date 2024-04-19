@@ -1,33 +1,33 @@
 /*
  Copyright (c) 2015, OpenEmu Team
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
-     * Redistributions of source code must retain the above copyright
-       notice, this list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright
-       notice, this list of conditions and the following disclaimer in the
-       documentation and/or other materials provided with the distribution.
-     * Neither the name of the OpenEmu Team nor the
-       names of its contributors may be used to endorse or promote products
-       derived from this software without specific prior written permission.
- 
+ * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ * Neither the name of the OpenEmu Team nor the
+ names of its contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
  THIS SOFTWARE IS PROVIDED BY OpenEmu Team ''AS IS'' AND ANY
  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+@import OpenEmuBase;
 
 #import "GBGameCore.h"
-#import <OpenEmuBase/OERingBuffer.h>
 #import "OEGBSystemResponderClient.h"
-#import <OpenGL/gl.h>
 
 #include <sstream>
 #include "gambatte.h"
@@ -88,7 +88,7 @@ public:
         _cheatList = [NSMutableDictionary dictionary];
     }
 
-	return self;
+    return self;
 }
 
 - (void)dealloc
@@ -190,14 +190,14 @@ public:
     return OEIntSizeMake(10, 9);
 }
 
-- (GLenum)pixelFormat
+- (uint32_t)pixelFormat
 {
-    return GL_BGRA;
+    return OEPixelFormat_BGRA;
 }
 
-- (GLenum)pixelType
+- (uint32_t)pixelType
 {
-    return GL_UNSIGNED_INT_8_8_8_8_REV;
+    return OEPixelType_UNSIGNED_INT_8_8_8_8_REV;
 }
 
 # pragma mark - Audio
@@ -559,22 +559,22 @@ const int GBMap[] = {gambatte::InputGetter::UP, gambatte::InputGetter::DOWN, gam
 {
     NSDictionary <NSString *, NSString *> *paletteNames =
     @{
-      @"Internal"   : @"Internal",
-      @"Grayscale"  : @"GBC - Grayscale",
-      @"Greenscale" : @"Greenscale",
-      @"Pocket"     : @"Pocket",
-      @"Blue"       : @"GBC - Blue",
-      @"Dark Blue"  : @"GBC - Dark Blue",
-      @"Green"      : @"GBC - Green",
-      @"Dark Green" : @"GBC - Dark Green",
-      @"Brown"      : @"GBC - Brown",
-      @"Dark Brown" : @"GBC - Dark Brown",
-      @"Red"        : @"GBC - Red",
-      @"Yellow"     : @"GBC - Yellow",
-      @"Orange"     : @"GBC - Orange",
-      @"Pastel Mix" : @"GBC - Pastel Mix",
-      @"Inverted"   : @"GBC - Inverted",
-      };
+        @"Internal"   : @"Internal",
+        @"Grayscale"  : @"GBC - Grayscale",
+        @"Greenscale" : @"Greenscale",
+        @"Pocket"     : @"Pocket",
+        @"Blue"       : @"GBC - Blue",
+        @"Dark Blue"  : @"GBC - Dark Blue",
+        @"Green"      : @"GBC - Green",
+        @"Dark Green" : @"GBC - Dark Green",
+        @"Brown"      : @"GBC - Brown",
+        @"Dark Brown" : @"GBC - Dark Brown",
+        @"Red"        : @"GBC - Red",
+        @"Yellow"     : @"GBC - Yellow",
+        @"Orange"     : @"GBC - Orange",
+        @"Pastel Mix" : @"GBC - Pastel Mix",
+        @"Inverted"   : @"GBC - Inverted",
+    };
 
     palette = paletteNames[palette];
     unsigned short *gbc_bios_palette = NULL;
@@ -617,18 +617,18 @@ const int GBMap[] = {gambatte::InputGetter::UP, gambatte::InputGetter::DOWN, gam
         gb.setDmgPaletteColor(2, 2, 6974033);
         gb.setDmgPaletteColor(2, 3, 2828823);
 
-//        gb.setDmgPaletteColor(0, 0, 13029285);
-//        gb.setDmgPaletteColor(0, 1, 9213547);
-//        gb.setDmgPaletteColor(0, 2, 4870457);
-//        gb.setDmgPaletteColor(0, 3, 1580056);
-//        gb.setDmgPaletteColor(1, 0, 13029285);
-//        gb.setDmgPaletteColor(1, 1, 9213547);
-//        gb.setDmgPaletteColor(1, 2, 4870457);
-//        gb.setDmgPaletteColor(1, 3, 1580056);
-//        gb.setDmgPaletteColor(2, 0, 13029285);
-//        gb.setDmgPaletteColor(2, 1, 9213547);
-//        gb.setDmgPaletteColor(2, 2, 4870457);
-//        gb.setDmgPaletteColor(2, 3, 1580056);
+        // gb.setDmgPaletteColor(0, 0, 13029285);
+        // gb.setDmgPaletteColor(0, 1, 9213547);
+        // gb.setDmgPaletteColor(0, 2, 4870457);
+        // gb.setDmgPaletteColor(0, 3, 1580056);
+        // gb.setDmgPaletteColor(1, 0, 13029285);
+        // gb.setDmgPaletteColor(1, 1, 9213547);
+        // gb.setDmgPaletteColor(1, 2, 4870457);
+        // gb.setDmgPaletteColor(1, 3, 1580056);
+        // gb.setDmgPaletteColor(2, 0, 13029285);
+        // gb.setDmgPaletteColor(2, 1, 9213547);
+        // gb.setDmgPaletteColor(2, 2, 4870457);
+        // gb.setDmgPaletteColor(2, 3, 1580056);
         return;
     }
     else
